@@ -3,7 +3,7 @@ local UIS = game:GetService("UserInputService")
 
 local Functions = {}
 
--- ZONES FILTRADAS
+-- FILTRO ZONES (EXCLUYE SaveZone)
 function Functions.GetZones()
 	local zones = {}
 
@@ -30,7 +30,7 @@ end
 -- SUBRAYADO ANIMADO
 function Functions.MoveIndicator(indicator, button)
 	local textSize = button.TextBounds.X
-	
+
 	indicator:TweenSize(
 		UDim2.new(0,textSize,0,2),
 		Enum.EasingDirection.Out,
@@ -105,7 +105,7 @@ function Functions.MakeDraggable(frame)
 	end)
 end
 
--- RESET AL MORIR
+-- RESET AUTOMÁTICO
 function Functions.EnableReset(gui)
 	local player = Players.LocalPlayer
 
@@ -114,7 +114,7 @@ function Functions.EnableReset(gui)
 		if gui then
 			gui:Destroy()
 		end
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/PelaoTruco/ZembluHub/main/Loader.lua"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/PelaoTruco/ZembluHub/main/Main.lua"))()
 	end)
 end
 
