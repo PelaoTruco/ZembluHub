@@ -21,10 +21,22 @@ function Functions.TeleportTo(part)
 end
 
 function Functions.MoveIndicator(indicator, button)
+	indicator.Visible = true
+	
+	local textBounds = button.TextBounds
+	
+	indicator:TweenSize(
+		UDim2.new(0, textBounds.X, 0, 2),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
+		0.25,
+		true
+	)
+	
 	indicator:TweenPosition(
 		UDim2.new(
 			button.Position.X.Scale,
-			button.Position.X.Offset,
+			button.Position.X.Offset + (button.AbsoluteSize.X - textBounds.X)/2,
 			1,
 			-2
 		),
