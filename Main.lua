@@ -8,11 +8,14 @@ gui.Name = "ZembluHub"
 gui.Parent = player:WaitForChild("PlayerGui")
 gui.ResetOnSpawn = false
 
+Functions.EnableReset(gui)
+
 local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0,700,0,450)
-main.Position = UDim2.new(0.5,-350,0.5,-225)
 main.BackgroundColor3 = Style.Black
 main.BorderSizePixel = 0
+
+Functions.AnimateOpen(main)
+Functions.MakeDraggable(main)
 
 local header = Instance.new("Frame", main)
 header.Size = UDim2.new(1,0,0,40)
@@ -37,14 +40,14 @@ layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 layout.Padding = UDim.new(0,40)
 
 local indicator = Instance.new("Frame", toolbar)
-indicator.Size = UDim2.new(0,100,0,2)
+indicator.Size = UDim2.new(0,0,0,2)
 indicator.Position = UDim2.new(0,0,1,-2)
 indicator.BackgroundColor3 = Style.Neon
 
-local options = Instance.new("Frame", main)
-options.Position = UDim2.new(0,0,0,70)
-options.Size = UDim2.new(1,0,1,-70)
-options.BackgroundColor3 = Style.Black
+local content = Instance.new("Frame", main)
+content.Position = UDim2.new(0,0,0,70)
+content.Size = UDim2.new(1,0,1,-70)
+content.BackgroundColor3 = Style.MidPurple
 
 local function createTab(name)
 	local btn = Instance.new("TextButton", toolbar)
@@ -54,22 +57,16 @@ local function createTab(name)
 	btn.Font = Style.Font
 	btn.TextSize = 14
 	btn.TextColor3 = Style.Neon
-	
+
 	btn.MouseButton1Click:Connect(function()
 		title.Text = "ZembluHub | "..name
 		Functions.MoveIndicator(indicator, btn)
-		options:ClearAllChildren()
-		
-		if Categories[name] then
-			Categories[name](options)
-		end
+		Categories[name](content, Style, Functions)
 	end)
 end
 
 createTab("Player")
-createTab("Visual")
-createTab("Misc")
 
-Categories.Player(options)
+Categories.Player(content, Style, Functions)
 
 end
